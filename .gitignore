@@ -47,10 +47,9 @@ target/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
-/dist/
-/nbdist/
+dist/
+nbdist/
 /.nb-gradle/
-build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -59,7 +58,6 @@ build/
 
 .DS_Store
 node_modules/
-dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
