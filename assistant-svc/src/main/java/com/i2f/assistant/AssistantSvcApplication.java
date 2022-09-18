@@ -1,6 +1,6 @@
 package com.i2f.assistant;
 
-import i2f.spring.slf4j.Slf4jPrintStream;
+import i2f.springboot.application.WarBootApplication;
 import i2f.springboot.asyn.EnableAsyncConfig;
 import i2f.springboot.context.EnableSpringContextConfig;
 import i2f.springboot.cors.EnableCorsConfig;
@@ -9,14 +9,13 @@ import i2f.springboot.mvc.EnableMvcConfig;
 import i2f.springboot.mybatis.EnableMybatisConfig;
 import i2f.springboot.property.EnablePropertyDecryptConfig;
 import i2f.springboot.redis.EnableRedisConfig;
-import i2f.springboot.redis.LettuceRedisHeartbeatConfig;
 import i2f.springboot.schedule.EnableScheduleConfig;
 import i2f.springboot.secure.EnableSecureConfig;
 import i2f.springboot.security.EnableSecurityConfig;
-import org.springframework.boot.SpringApplication;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 
+@Slf4j
 @SpringBootApplication
 @EnableSpringContextConfig
 @EnableMvcConfig
@@ -29,12 +28,11 @@ import org.springframework.context.annotation.Import;
 @EnableMybatisConfig
 @EnablePropertyDecryptConfig
 @EnableScheduleConfig
-@Import(LettuceRedisHeartbeatConfig.class)
-public class AssistantSvcApplication {
+public class AssistantSvcApplication extends WarBootApplication {
 
     public static void main(String[] args) {
-        Slf4jPrintStream.redirectSysoutSyserr();
-        SpringApplication.run(AssistantSvcApplication.class, args);
+        String logs = startup(AssistantSvcApplication.class, args);
+        log.info(logs);
     }
 
 }
