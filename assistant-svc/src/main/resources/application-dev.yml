@@ -1,0 +1,74 @@
+server:
+  port: 8082
+  tomcat:
+    max-swallow-size: -1
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css,image/*
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 5200MB
+      max-request-size: 5200MB
+  #json 时间戳统一转换
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    locale: zh_CN
+  aop:
+    proxy-target-class: true
+  # 设置静态文件路径，js,css等
+  mvc:
+    static-path-pattern: /res/**
+  resource:
+    static-locations: classpath:/static/,classpath:/public/
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/assistant_db?characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: ltb12315
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #redis 配置
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password: ltb12315
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+      shutdown-timeout: 100ms
+  security:
+    user:
+      name: root
+      password: ltb12315
+      roles:
+        - root
+
+mybatis:
+  mapper-locations:
+    - classpath*:mapper/**/*Mapper.xml
+    - classpath*:i2f/assistant/svc/**/xml/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    call-setters-on-nulls: true
+
+#Mybatis输出sql日志
+logging:
+  level:
+    root: info
+    i2f.assistant.svc: info
+    i2f.assistant.svc.**.mapper: debug
+
+feign:
+  client:
+    config:
+      default:
+        logger-level: full
+        connect-timeout: 6000
+        read-timeout: 6000
+

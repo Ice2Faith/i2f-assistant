@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: assistant-svc
+  profiles:
+    active: dev
+
+i2f:
+  springboot:
+    config:
+      security:
+        permit-all-list: /**/*.html,/secure/key
